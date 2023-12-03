@@ -12,14 +12,14 @@ import (
 	"github.com/sirupsen/logrus"
 	"github.com/urfave/cli"
 
-	"github.com/oandrew/ipod"
-	"github.com/oandrew/ipod/hid"
-	audio "github.com/oandrew/ipod/lingo-audio"
-	dispremote "github.com/oandrew/ipod/lingo-dispremote"
-	extremote "github.com/oandrew/ipod/lingo-extremote"
-	general "github.com/oandrew/ipod/lingo-general"
-	_ "github.com/oandrew/ipod/lingo-simpleremote"
-	"github.com/oandrew/ipod/trace"
+	"github.com/teostofell/ipod"
+	"github.com/teostofell/ipod/hid"
+	audio "github.com/teostofell/ipod/lingo-audio"
+	dispremote "github.com/teostofell/ipod/lingo-dispremote"
+	extremote "github.com/teostofell/ipod/lingo-extremote"
+	general "github.com/teostofell/ipod/lingo-general"
+	_ "github.com/teostofell/ipod/lingo-simpleremote"
+	"github.com/teostofell/ipod/trace"
 )
 
 var log = logrus.StandardLogger()

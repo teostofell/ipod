@@ -3,7 +3,7 @@ package ipod_test
 import (
 	"testing"
 
-	"github.com/oandrew/ipod"
+	"github.com/teostofell/ipod"
 )
 
 func TestChecksum(t *testing.T) {

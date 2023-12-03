@@ -6,8 +6,8 @@ import (
 
 	"github.com/davecgh/go-spew/spew"
 
-	"github.com/oandrew/ipod"
-	general "github.com/oandrew/ipod/lingo-general"
+	"github.com/teostofell/ipod"
+	general "github.com/teostofell/ipod/lingo-general"
 
 	"github.com/fullsailor/pkcs7"
 )

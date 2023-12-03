@@ -5,8 +5,8 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/oandrew/ipod"
-	_ "github.com/oandrew/ipod/lingo-general"
+	"github.com/teostofell/ipod"
+	_ "github.com/teostofell/ipod/lingo-general"
 )
 
 func TestPacketWriter_WritePacket(t *testing.T) {

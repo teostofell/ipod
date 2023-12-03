@@ -4,7 +4,7 @@ import (
 	"errors"
 	"time"
 
-	"github.com/oandrew/ipod"
+	"github.com/teostofell/ipod"
 )
 
 type DeviceDispRemote interface {

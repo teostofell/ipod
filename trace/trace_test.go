@@ -8,7 +8,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/oandrew/ipod/trace"
+	"github.com/teostofell/ipod/trace"
 )
 
 func TestWriteRead(t *testing.T) {

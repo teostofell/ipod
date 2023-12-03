@@ -6,8 +6,8 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/oandrew/ipod"
-	audio "github.com/oandrew/ipod/lingo-audio"
+	"github.com/teostofell/ipod"
+	audio "github.com/teostofell/ipod/lingo-audio"
 )
 
 type CustomPayload struct {

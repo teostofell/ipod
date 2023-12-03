@@ -1,7 +1,7 @@
 package extremote
 
 import (
-	"github.com/oandrew/ipod"
+	"github.com/teostofell/ipod"
 )
 
 type DeviceExtRemote interface {

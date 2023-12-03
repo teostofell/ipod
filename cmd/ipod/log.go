@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 
-	"github.com/oandrew/ipod"
 	"github.com/sirupsen/logrus"
+	"github.com/teostofell/ipod"
 )
 
 func FrameLogEntry(e *logrus.Entry, frame []byte) *logrus.Entry {
