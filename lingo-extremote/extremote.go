@@ -501,3 +501,13 @@ type RequestiPodName struct {
 type ReturniPodName struct {
 	Name []byte
 }
+
+func (s ReturniPodName) MarshalBinary() ([]byte, error) {
+	return s.Name, nil
+}
+
+func (s *ReturniPodName) UnmarshalBinary(data []byte) error {
+	s.Name = make([]byte, len(data))
+	copy(s.Name, data)
+	return nil
+}
