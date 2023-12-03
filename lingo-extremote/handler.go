@@ -158,6 +158,9 @@ func HandleExtRemote(req *ipod.Command, tr ipod.CommandWriter, dev DeviceExtRemo
 	case *GetPBTrackInfo:
 	// RetPBTrackInfo:
 
+	case *RequestiPodName:
+		ipod.Respond(req, tr, &ReturniPodName{Name: ipod.StringToBytes("iPod Device")})
+
 	default:
 		_ = msg
 	}

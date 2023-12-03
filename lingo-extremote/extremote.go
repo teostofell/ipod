@@ -77,6 +77,8 @@ var Lingos struct {
 	RetDBTrackInfo                             `id:"0x0041"`
 	GetPBTrackInfo                             `id:"0x0042"`
 	RetPBTrackInfo                             `id:"0x0043"`
+	RequestiPodName                            `id:"0x0014"`
+	ReturniPodName                             `id:"0x0015"`
 }
 
 type ACKStatus uint8
@@ -249,7 +251,7 @@ type RetTrackArtworkData struct {
 	Data         []byte
 }
 
-//ack
+// ack
 type ResetDBSelection struct {
 }
 
@@ -492,4 +494,10 @@ type RetDBTrackInfo struct {
 type GetPBTrackInfo struct {
 }
 type RetPBTrackInfo struct {
+}
+
+type RequestiPodName struct {
+}
+type ReturniPodName struct {
+	Name []byte
 }
