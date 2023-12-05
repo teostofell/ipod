@@ -2,6 +2,7 @@ package extremote
 
 import (
 	"github.com/teostofell/ipod"
+	"github.com/teostofell/ipod/metadata-parser"
 )
 
 type DeviceExtRemote interface {
@@ -16,7 +17,7 @@ func ackSuccess(req *ipod.Command) *ACK {
 // 	return ACKPending{Status: ACKStatusPending, CmdID: uint8(req.ID.CmdID()), MaxWait: maxWait}
 // }
 
-func HandleExtRemote(req *ipod.Command, tr ipod.CommandWriter, dev DeviceExtRemote) error {
+func HandleExtRemote(req *ipod.Command, tr ipod.CommandWriter, dev DeviceExtRemote, mp metadata.MetadataParser) error {
 	//log.Printf("Req: %#v", req)
 	switch msg := req.Payload.(type) {
 
@@ -96,15 +97,15 @@ func HandleExtRemote(req *ipod.Command, tr ipod.CommandWriter, dev DeviceExtRemo
 		})
 	case *GetIndexedPlayingTrackTitle:
 		ipod.Respond(req, tr, &ReturnIndexedPlayingTrackTitle{
-			Title: ipod.StringToBytes("title"),
+			Title: ipod.StringToBytes(mp.Title),
 		})
 	case *GetIndexedPlayingTrackArtistName:
 		ipod.Respond(req, tr, &ReturnIndexedPlayingTrackArtistName{
-			ArtistName: ipod.StringToBytes("artist"),
+			ArtistName: ipod.StringToBytes(mp.Artist),
 		})
 	case *GetIndexedPlayingTrackAlbumName:
 		ipod.Respond(req, tr, &ReturnIndexedPlayingTrackAlbumName{
-			AlbumName: ipod.StringToBytes("album"),
+			AlbumName: ipod.StringToBytes(mp.Album),
 		})
 	case *SetPlayStatusChangeNotification:
 		ipod.Respond(req, tr, ackSuccess(req))
@@ -159,7 +160,7 @@ func HandleExtRemote(req *ipod.Command, tr ipod.CommandWriter, dev DeviceExtRemo
 	// RetPBTrackInfo:
 
 	case *RequestiPodName:
-		ipod.Respond(req, tr, &ReturniPodName{Name: ipod.StringToBytes("ipod")})
+		ipod.Respond(req, tr, &ReturniPodName{Name: ipod.StringToBytes("AirPlay")})
 
 	default:
 		_ = msg

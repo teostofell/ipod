@@ -366,7 +366,7 @@ func processFrames(frameTransport ipod.FrameReadWriter) {
 		outCmdBuf := ipod.CmdBuffer{}
 		for i := range inCmdBuf.Commands {
 			//todo: check return error
-			handlePacket(&outCmdBuf, inCmdBuf.Commands[i])
+			handlePacket(&outCmdBuf, inCmdBuf.Commands[i], metadataParser)
 		}
 
 		for i := range outCmdBuf.Commands {
@@ -389,7 +389,7 @@ func processFrames(frameTransport ipod.FrameReadWriter) {
 
 var devGeneral = &DevGeneral{}
 
-func handlePacket(cmdWriter ipod.CommandWriter, cmd *ipod.Command) {
+func handlePacket(cmdWriter ipod.CommandWriter, cmd *ipod.Command, mp metadata.MetadataParser) {
 	switch cmd.ID.LingoID() {
 	case ipod.LingoGeneralID:
 		if auth, ok := cmd.Payload.(*general.RetDevAuthenticationInfo); ok {
@@ -405,7 +405,7 @@ func handlePacket(cmdWriter ipod.CommandWriter, cmd *ipod.Command) {
 	case ipod.LingoDisplayRemoteID:
 		dispremote.HandleDispRemote(cmd, cmdWriter, nil)
 	case ipod.LingoExtRemoteID:
-		extremote.HandleExtRemote(cmd, cmdWriter, nil)
+		extremote.HandleExtRemote(cmd, cmdWriter, nil, mp)
 	case ipod.LingoDigitalAudioID:
 		audio.HandleAudio(cmd, cmdWriter, nil)
 	}

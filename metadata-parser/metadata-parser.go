@@ -9,9 +9,19 @@ import (
 	"log"
 	"os"
 	"strings"
-
-	extremote "github.com/teostofell/ipod/lingo-extremote"
 )
+
+// >> TODO: duplicated from lingo-extremote/extremote.go
+type PlayerState byte
+
+const (
+	PlayerStateStopped PlayerState = 0x00
+	PlayerStatePlaying PlayerState = 0x01
+	PlayerStatePaused  PlayerState = 0x02
+	PlayerStateError   PlayerState = 0xff
+)
+
+// <<
 
 type Item struct {
 	XMLName xml.Name `xml:"item"`
@@ -26,10 +36,10 @@ type MetadataParser struct {
 	Album  string
 	Title  string
 	Length int
-	Status extremote.PlayerState
+	Status PlayerState
 }
 
-func (mp MetadataParser) Start() {
+func (mp *MetadataParser) Start() {
 	// TODO: make a parameter
 	file, err := os.Open("/tmp/shairport-sync-metadata")
 	if err != nil {
@@ -55,20 +65,27 @@ func (mp MetadataParser) Start() {
 			switch decodedItem.Code {
 			case "asar":
 				log.Printf("Artist: %s", decodedItem.Data)
+				mp.Artist = decodedItem.Data
 			case "asal":
 				log.Printf("Album Name: %s", decodedItem.Data)
+				mp.Album = decodedItem.Data
 			case "minm":
 				log.Printf("Title: %s", decodedItem.Data)
+				mp.Title = decodedItem.Data
 			case "astm":
 				trackLength := binary.BigEndian.Uint32([]byte(decodedItem.Data))
 				log.Printf("Track length: %d", trackLength)
+				mp.Length = int(trackLength)
 			case "pffr":
 				log.Printf(">> Play")
+				mp.Status = PlayerStatePlaying
 			case "paus":
 			case "pend":
 				log.Printf(">> Pause")
+				mp.Status = PlayerStatePaused
 			case "pres":
 				log.Printf(">> Resume")
+				mp.Status = PlayerStatePlaying
 			case "mdst":
 				log.Printf("Metadata bundle start")
 			case "mden":
