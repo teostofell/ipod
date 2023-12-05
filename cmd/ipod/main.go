@@ -19,6 +19,7 @@ import (
 	extremote "github.com/teostofell/ipod/lingo-extremote"
 	general "github.com/teostofell/ipod/lingo-general"
 	_ "github.com/teostofell/ipod/lingo-simpleremote"
+	"github.com/teostofell/ipod/metadata-parser"
 	"github.com/teostofell/ipod/trace"
 )
 
@@ -331,6 +332,9 @@ func logCmd(cmd *ipod.Command, err error, msg string) {
 
 func processFrames(frameTransport ipod.FrameReadWriter) {
 	serde := ipod.CommandSerde{}
+
+	metadataParser := metadata.MetadataParser{}
+	go metadataParser.Start()
 
 	for {
 		inFrame, err := frameTransport.ReadFrame()
