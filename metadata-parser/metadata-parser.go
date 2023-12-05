@@ -30,7 +30,8 @@ type MetadataParser struct {
 }
 
 func (mp MetadataParser) Start() {
-	file, err := os.Open("shairport-dump")
+	// TODO: make a parameter
+	file, err := os.Open("/tmp/shairport-sync-metadata")
 	if err != nil {
 		log.Fatal(err)
 	}
