@@ -1,6 +1,8 @@
 package extremote
 
 import (
+	"math/rand"
+
 	"github.com/teostofell/ipod"
 	"github.com/teostofell/ipod/metadata-parser"
 )
@@ -93,7 +95,7 @@ func HandleExtRemote(req *ipod.Command, tr ipod.CommandWriter, dev DeviceExtRemo
 		})
 	case *GetCurrentPlayingTrackIndex:
 		ipod.Respond(req, tr, &ReturnCurrentPlayingTrackIndex{
-			TrackIndex: 0,
+			TrackIndex: rand.Int31n(10),
 		})
 	case *GetIndexedPlayingTrackTitle:
 		ipod.Respond(req, tr, &ReturnIndexedPlayingTrackTitle{
