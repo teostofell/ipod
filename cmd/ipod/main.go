@@ -20,6 +20,7 @@ import (
 	general "github.com/teostofell/ipod/lingo-general"
 	_ "github.com/teostofell/ipod/lingo-simpleremote"
 	"github.com/teostofell/ipod/metadata-parser"
+	remotecontrol "github.com/teostofell/ipod/remote-control"
 	"github.com/teostofell/ipod/trace"
 )
 
@@ -336,6 +337,8 @@ func processFrames(frameTransport ipod.FrameReadWriter) {
 	metadataParser := metadata.MetadataParser{}
 	go metadataParser.Start()
 
+	remoteControl := remotecontrol.RemoteControl{}
+
 	for {
 		inFrame, err := frameTransport.ReadFrame()
 		if err == io.EOF {
@@ -366,7 +369,7 @@ func processFrames(frameTransport ipod.FrameReadWriter) {
 		outCmdBuf := ipod.CmdBuffer{}
 		for i := range inCmdBuf.Commands {
 			//todo: check return error
-			handlePacket(&outCmdBuf, inCmdBuf.Commands[i], metadataParser)
+			handlePacket(&outCmdBuf, inCmdBuf.Commands[i], metadataParser, remoteControl)
 		}
 
 		for i := range outCmdBuf.Commands {
@@ -389,7 +392,7 @@ func processFrames(frameTransport ipod.FrameReadWriter) {
 
 var devGeneral = &DevGeneral{}
 
-func handlePacket(cmdWriter ipod.CommandWriter, cmd *ipod.Command, mp metadata.MetadataParser) {
+func handlePacket(cmdWriter ipod.CommandWriter, cmd *ipod.Command, mp metadata.MetadataParser, rc remotecontrol.RemoteControl) {
 	switch cmd.ID.LingoID() {
 	case ipod.LingoGeneralID:
 		if auth, ok := cmd.Payload.(*general.RetDevAuthenticationInfo); ok {
@@ -405,7 +408,7 @@ func handlePacket(cmdWriter ipod.CommandWriter, cmd *ipod.Command, mp metadata.M
 	case ipod.LingoDisplayRemoteID:
 		dispremote.HandleDispRemote(cmd, cmdWriter, nil)
 	case ipod.LingoExtRemoteID:
-		extremote.HandleExtRemote(cmd, cmdWriter, nil, mp)
+		extremote.HandleExtRemote(cmd, cmdWriter, nil, mp, rc)
 	case ipod.LingoDigitalAudioID:
 		audio.HandleAudio(cmd, cmdWriter, nil)
 	}

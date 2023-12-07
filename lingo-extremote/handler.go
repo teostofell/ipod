@@ -5,6 +5,7 @@ import (
 
 	"github.com/teostofell/ipod"
 	"github.com/teostofell/ipod/metadata-parser"
+	remotecontrol "github.com/teostofell/ipod/remote-control"
 )
 
 type DeviceExtRemote interface {
@@ -19,7 +20,7 @@ func ackSuccess(req *ipod.Command) *ACK {
 // 	return ACKPending{Status: ACKStatusPending, CmdID: uint8(req.ID.CmdID()), MaxWait: maxWait}
 // }
 
-func HandleExtRemote(req *ipod.Command, tr ipod.CommandWriter, dev DeviceExtRemote, mp metadata.MetadataParser) error {
+func HandleExtRemote(req *ipod.Command, tr ipod.CommandWriter, dev DeviceExtRemote, mp metadata.MetadataParser, rc remotecontrol.RemoteControl) error {
 	//log.Printf("Req: %#v", req)
 	switch msg := req.Payload.(type) {
 
@@ -116,6 +117,7 @@ func HandleExtRemote(req *ipod.Command, tr ipod.CommandWriter, dev DeviceExtRemo
 	case *PlayCurrentSelection:
 		ipod.Respond(req, tr, ackSuccess(req))
 	case *PlayControl:
+		rc.Next()
 		ipod.Respond(req, tr, ackSuccess(req))
 	case *GetTrackArtworkTimes:
 		ipod.Respond(req, tr, &RetTrackArtworkTimes{})
