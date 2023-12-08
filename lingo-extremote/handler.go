@@ -143,6 +143,7 @@ func HandleExtRemote(req *ipod.Command, tr ipod.CommandWriter, dev DeviceExtRemo
 		})
 	case *SetCurrentPlayingTrack:
 		rc.Next()
+		ipod.Respond(req, tr, ackSuccess(req))
 	case *SelectSortDBRecord:
 	case *GetColorDisplayImageLimits:
 		ipod.Respond(req, tr, &ReturnColorDisplayImageLimits{
