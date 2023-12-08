@@ -1,8 +1,6 @@
 package extremote
 
 import (
-	"math/rand"
-
 	"github.com/teostofell/ipod"
 	"github.com/teostofell/ipod/metadata-parser"
 	remotecontrol "github.com/teostofell/ipod/remote-control"
@@ -96,7 +94,7 @@ func HandleExtRemote(req *ipod.Command, tr ipod.CommandWriter, dev DeviceExtRemo
 		})
 	case *GetCurrentPlayingTrackIndex:
 		ipod.Respond(req, tr, &ReturnCurrentPlayingTrackIndex{
-			TrackIndex: rand.Int31n(10),
+			TrackIndex: mp.TrackIndex,
 		})
 	case *GetIndexedPlayingTrackTitle:
 		ipod.Respond(req, tr, &ReturnIndexedPlayingTrackTitle{
@@ -144,6 +142,7 @@ func HandleExtRemote(req *ipod.Command, tr ipod.CommandWriter, dev DeviceExtRemo
 			NumTracks: 1,
 		})
 	case *SetCurrentPlayingTrack:
+		rc.Next()
 	case *SelectSortDBRecord:
 	case *GetColorDisplayImageLimits:
 		ipod.Respond(req, tr, &ReturnColorDisplayImageLimits{

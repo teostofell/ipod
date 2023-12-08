@@ -32,11 +32,13 @@ type Item struct {
 }
 
 type MetadataParser struct {
-	Artist string
-	Album  string
-	Title  string
-	Length int
-	Status PlayerState
+	IndexStr   string
+	TrackIndex int32
+	Artist     string
+	Album      string
+	Title      string
+	Length     int
+	Status     PlayerState
 }
 
 func (mp *MetadataParser) Start() {
@@ -90,6 +92,11 @@ func (mp *MetadataParser) Start() {
 				log.Printf("Metadata bundle start")
 			case "mden":
 				log.Printf("Metadata bundle end")
+				indexStr := mp.Album + mp.Artist + mp.Title
+				if indexStr != mp.IndexStr {
+					mp.TrackIndex += 1
+					mp.IndexStr = indexStr
+				}
 			default:
 			}
 
