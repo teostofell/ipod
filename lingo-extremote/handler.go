@@ -1,8 +1,6 @@
 package extremote
 
 import (
-	"log"
-
 	"github.com/teostofell/ipod"
 	"github.com/teostofell/ipod/metadata-parser"
 	remotecontrol "github.com/teostofell/ipod/remote-control"
@@ -143,8 +141,16 @@ func HandleExtRemote(req *ipod.Command, tr ipod.CommandWriter, dev DeviceExtRemo
 			NumTracks: 1,
 		})
 	case *SetCurrentPlayingTrack:
-		log.Print(req.Payload)
-		rc.Next()
+		data, ok := req.Payload.(*SetCurrentPlayingTrack)
+
+		if ok {
+			if data.TrackIndex < mp.TrackIndex {
+				rc.Previous()
+			} else {
+				rc.Next()
+			}
+		}
+
 		ipod.Respond(req, tr, ackSuccess(req))
 	case *SelectSortDBRecord:
 	case *GetColorDisplayImageLimits:
