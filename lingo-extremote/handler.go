@@ -1,6 +1,8 @@
 package extremote
 
 import (
+	"log"
+
 	"github.com/teostofell/ipod"
 	"github.com/teostofell/ipod/metadata-parser"
 	remotecontrol "github.com/teostofell/ipod/remote-control"
@@ -115,7 +117,6 @@ func HandleExtRemote(req *ipod.Command, tr ipod.CommandWriter, dev DeviceExtRemo
 	case *PlayCurrentSelection:
 		ipod.Respond(req, tr, ackSuccess(req))
 	case *PlayControl:
-		// rc.Next()
 		ipod.Respond(req, tr, ackSuccess(req))
 	case *GetTrackArtworkTimes:
 		ipod.Respond(req, tr, &RetTrackArtworkTimes{})
@@ -142,6 +143,7 @@ func HandleExtRemote(req *ipod.Command, tr ipod.CommandWriter, dev DeviceExtRemo
 			NumTracks: 1,
 		})
 	case *SetCurrentPlayingTrack:
+		log.Print(req.Payload)
 		rc.Next()
 		ipod.Respond(req, tr, ackSuccess(req))
 	case *SelectSortDBRecord:
