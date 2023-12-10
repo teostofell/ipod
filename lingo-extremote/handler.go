@@ -156,7 +156,7 @@ func HandleExtRemote(req *ipod.Command, tr ipod.CommandWriter, dev DeviceExtRemo
 				PlaybackStopped: 0,
 				TrackIndex:      mp.TrackIndex,
 			})
-			if err {
+			if err != nil {
 				log.Print(err)
 			}
 			ipod.Send(tr, cmd)
