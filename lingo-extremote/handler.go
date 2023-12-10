@@ -1,6 +1,8 @@
 package extremote
 
 import (
+	"log"
+
 	"github.com/teostofell/ipod"
 	"github.com/teostofell/ipod/metadata-parser"
 	remotecontrol "github.com/teostofell/ipod/remote-control"
@@ -150,10 +152,13 @@ func HandleExtRemote(req *ipod.Command, tr ipod.CommandWriter, dev DeviceExtRemo
 				rc.Next()
 			}
 
-			cmd, _ := ipod.BuildCommand(&PlayStatusChangeNotification{
+			cmd, err := ipod.BuildCommand(&PlayStatusChangeNotification{
 				PlaybackStopped: 0,
 				TrackIndex:      mp.TrackIndex,
 			})
+			if err {
+				log.Print(err)
+			}
 			ipod.Send(tr, cmd)
 		}
 
