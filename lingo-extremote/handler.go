@@ -153,8 +153,7 @@ func HandleExtRemote(req *ipod.Command, tr ipod.CommandWriter, dev DeviceExtRemo
 			}
 
 			cmd, err := ipod.BuildCommand(&PlayStatusChangeNotification{
-				Status:     0x01,
-				TrackIndex: mp.TrackIndex,
+				Status: 0x00,
 			})
 
 			log.Print(cmd)

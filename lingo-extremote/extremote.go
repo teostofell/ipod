@@ -372,8 +372,7 @@ type SetPlayStatusChangeNotificationShort struct {
 	Enabled bool
 }
 type PlayStatusChangeNotification struct {
-	Status     byte // finish
-	TrackIndex int32
+	Status byte // finish
 }
 type PlayCurrentSelection struct {
 	SelectedTrackIndex int32
