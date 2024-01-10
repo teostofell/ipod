@@ -92,7 +92,7 @@ func HandleExtRemote(req *ipod.Command, tr ipod.CommandWriter, dev DeviceExtRemo
 		ipod.Respond(req, tr, &ReturnPlayStatus{
 			TrackLength:   300 * 1000,
 			TrackPosition: 20 * 1000,
-			State:         PlayerStatePaused,
+			State:         PlayerStatePlaying,
 		})
 	case *GetCurrentPlayingTrackIndex:
 		ipod.Respond(req, tr, &ReturnCurrentPlayingTrackIndex{
