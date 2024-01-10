@@ -140,7 +140,7 @@ func HandleExtRemote(req *ipod.Command, tr ipod.CommandWriter, dev DeviceExtRemo
 		})
 	case *GetNumPlayingTracks:
 		ipod.Respond(req, tr, &ReturnNumPlayingTracks{
-			NumTracks: 1,
+			NumTracks: 1000,
 		})
 	case *SetCurrentPlayingTrack:
 		data, ok := req.Payload.(*SetCurrentPlayingTrack)
