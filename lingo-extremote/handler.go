@@ -84,7 +84,7 @@ func HandleExtRemote(req *ipod.Command, tr ipod.CommandWriter, dev DeviceExtRemo
 		ipod.Respond(req, tr, ackSuccess(req))
 	case *GetNumberCategorizedDBRecords:
 		ipod.Respond(req, tr, &ReturnNumberCategorizedDBRecords{
-			RecordCount: 5000,
+			RecordCount: 500,
 		})
 	case *RetrieveCategorizedDatabaseRecords:
 		ipod.Respond(req, tr, &ReturnCategorizedDatabaseRecord{})
@@ -140,7 +140,7 @@ func HandleExtRemote(req *ipod.Command, tr ipod.CommandWriter, dev DeviceExtRemo
 		})
 	case *GetNumPlayingTracks:
 		ipod.Respond(req, tr, &ReturnNumPlayingTracks{
-			NumTracks: 5000,
+			NumTracks: 500,
 		})
 	case *SetCurrentPlayingTrack:
 		data, ok := req.Payload.(*SetCurrentPlayingTrack)
