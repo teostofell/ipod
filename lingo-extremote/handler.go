@@ -100,15 +100,15 @@ func HandleExtRemote(req *ipod.Command, tr ipod.CommandWriter, dev DeviceExtRemo
 		})
 	case *GetIndexedPlayingTrackTitle:
 		ipod.Respond(req, tr, &ReturnIndexedPlayingTrackTitle{
-			Title: ipod.StringToBytes(mp.Title),
+			Title: ipod.StringToBytes("mp.Title"),
 		})
 	case *GetIndexedPlayingTrackArtistName:
 		ipod.Respond(req, tr, &ReturnIndexedPlayingTrackArtistName{
-			ArtistName: ipod.StringToBytes(mp.Artist),
+			ArtistName: ipod.StringToBytes("mp.Artist"),
 		})
 	case *GetIndexedPlayingTrackAlbumName:
 		ipod.Respond(req, tr, &ReturnIndexedPlayingTrackAlbumName{
-			AlbumName: ipod.StringToBytes(mp.Album),
+			AlbumName: ipod.StringToBytes("mp.Album"),
 		})
 	case *SetPlayStatusChangeNotification:
 		ipod.Respond(req, tr, ackSuccess(req))
