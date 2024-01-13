@@ -335,7 +335,7 @@ func processFrames(frameTransport ipod.FrameReadWriter) {
 	serde := ipod.CommandSerde{}
 
 	metadataParser := metadata.MetadataParser{}
-	// go metadataParser.Start()
+	go metadataParser.Start()
 
 	remoteControl := remotecontrol.RemoteControl{}
 
